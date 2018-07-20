@@ -15,6 +15,9 @@
 		<div class="section">
 			credit de <input type="number" v-model="robor.credit"/> pe  <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in  <input type="date" v-model="robor.dataInceput"/> <button type="button" @click="calculeazaRate(robor.credit)">Calculeaza</button>
 		</div>
+		<pre>
+			{{robor.valoriRoborUtilizator}}
+		</pre>
 	</div>
 </template>
 

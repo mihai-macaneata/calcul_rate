@@ -2,6 +2,12 @@
   <div class="container">
     <bars v-on:calculeaza="calculeazaRate()" :genereazaGrafic="genereazaGrafic" :robor="robor"></bars>
     <barchart :genereazaGrafic="genereazaGrafic" :robor="robor"></barchart>
+    <pre>
+      Rata
+      {{robor.valoriRoborUtilizator}}
+      Media 2016
+      {{robor.ValoriGraficComparativ}}
+    </pre>
   </div>
 </template>
 

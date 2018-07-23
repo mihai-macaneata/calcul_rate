@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<svg class="bar-chart" width="960" height="500"></svg>
+		<svg class="bar-chart" width="960" height="300"></svg>
 	</div>
 </template>
 
@@ -71,14 +71,14 @@ export default {
           bar_container.append('text')
           .text(function(d){return parseInt(-d.totalDePlata).toFixed(2)})
           .attr("x", function(d) { return x(d.Date) })
-          .attr("y", function(d) { return y(-d.totalDePlata )})
+          .attr("y", function(d) { return y(-d.totalDePlata   - (-media2016) )})
           .attr('font-size', '9px')
 
 
           bar_container.append('rect')
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.Date) })
-          .attr("y", function(d) { return y(-d.totalDePlata )})
+          .attr("y", function(d) { return y(-d.totalDePlata  - (-media2016) )})
           .attr("width", 35)
           .attr("height", function(d) { return height - y(-d.totalDePlata  - (-media2016)) });
   	},

@@ -4,7 +4,7 @@
 		<div class="section">
 			<div class="left">
 				<h2>Crește ROBOR, <div><small>crește rata!</small></div></h2>
-				<h1>288 <small>lei</small></h1>
+				<h1>{{valoareCrestereRata}} <small>lei</small></h1>
 				<h3>plătiți în plus doar în ultima lună</h3>
 				<p>din cauză că ROBOR, stabil în 2016 la ~0,78%, a urcat la 3,15% în timpul guvernării PSD. </p>
 			</div>
@@ -34,6 +34,7 @@ export default {
   props: {
     robor: null,
     genereazaGrafic: false,
+    valoareCrestereRata: 0,
   },
 
   created(){
@@ -98,6 +99,12 @@ export default {
           .attr("y", function(d) { return y(-d.totalDePlata )})
           .attr("width", 70)
           .attr("height", function(d) { return height - y(-d.totalDePlata) });
+
+          this.valoareCrestere();
+    },
+
+    valoareCrestere(){
+      this.valoareCrestereRata = parseInt(-this.robor.valoriGraficComparativ[1].totalDePlata -  ( - this.robor.valoriGraficComparativ[0].totalDePlata))
     },
 
 

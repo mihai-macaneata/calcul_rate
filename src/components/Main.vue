@@ -6,7 +6,7 @@
       Rata
       {{robor.valoriRoborUtilizator}}
       Media 2016
-      {{robor.ValoriGraficComparativ}}
+      {{robor.valoriGraficComparativ}}
     </pre>
   </div>
 </template>

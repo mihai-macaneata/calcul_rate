@@ -28,6 +28,8 @@ export default {
 
   methods: {
   	renderChart() {
+      let media2016 = this.robor.valoriGraficComparativ[0].totalDePlata
+      console.log(media2016)
 		var svg = d3.select("svg.bar-chart"),
 		    margin = {top: 20, right: 20, bottom: 30, left: 40},
 		    width = +svg.attr("width") - margin.left - margin.right,
@@ -78,7 +80,7 @@ export default {
           .attr("x", function(d) { return x(d.Date) })
           .attr("y", function(d) { return y(-d.totalDePlata )})
           .attr("width", 35)
-          .attr("height", function(d) { return height - y(-d.totalDePlata) });
+          .attr("height", function(d) { return height - y(-d.totalDePlata  - (-media2016)) });
   	},
   },
 

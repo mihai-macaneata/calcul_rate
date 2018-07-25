@@ -1,24 +1,26 @@
 <template>
-	<div>
+	<div class="bars">
 
-		<div class="section">
-			<div class="left">
-				<h2>Crește ROBOR, <div><small>crește rata!</small></div></h2>
-				<h1>{{valoareCrestereRata}} <small>lei</small></h1>
-				<h3>plătiți în plus doar în ultima lună</h3>
-				<p>din cauză că ROBOR, stabil în 2016 la ~0,78%, a urcat la 3,15% în timpul guvernării PSD. </p>
+		<div class="page-container">
+			<div class="section">
+				<div class="left">
+					<h2>Crește ROBOR, <div><small>crește rata!</small></div></h2>
+					<h1>{{valoareCrestereRata}} <small>lei</small></h1>
+					<h3>plătiți în plus doar în ultima lună</h3>
+					<p>din cauză că ROBOR, stabil în 2016 la ~0,78%, a urcat la 3,15% în timpul guvernării PSD. </p>
+				</div>
 			</div>
-			<div class="right">
-
+			<div ref="svgCont" class="section svg-container">
+	    		<svg  class="bars" width="100%" height="500">
+	    		<!-- 	 <defs>
+					    <filter id="shadow" x="0" y="0" width="200%" height="200%">
+					      <feOffset result="offOut" in="SourceAlpha" color="#eee" height="85%" dx="10" dy="5" />
+					      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+					    </filter>
+					  </defs> -->
+	    		</svg>
 			</div>
 		</div>
-		<div class="section">
-			credit de <input type="number" v-model="robor.credit"/> pe  <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in  <input type="date" v-model="robor.dataInceput"/> <button type="button" @click="emitCalculeazaRate(robor.credit)">Calculeaza</button>
-		</div>
-		<pre>
-			<!-- {{robor.valoriRoborUtilizator}} -->
-		</pre>
-    <svg class="bars" width="960" height="500"></svg>
 
 	</div>
 </template>
@@ -34,7 +36,14 @@ export default {
   props: {
     robor: null,
     genereazaGrafic: false,
-    valoareCrestereRata: 0,
+  },
+
+
+  data () {
+    return {
+    	valoareCrestereRata: 0,
+
+    }
   },
 
   created(){
@@ -43,15 +52,12 @@ export default {
 
   methods: {
 
-    emitCalculeazaRate(credit) {
-      this.$emit('calculeaza', credit)
-    },
-
 
   renderChart() {
+  	let computedWidth = this.$refs["svgCont"].offsetWidth
     var svg = d3.select("svg.bars"),
         margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = +svg.attr("width") - margin.left - margin.right,
+        width = computedWidth - margin.left - margin.right,
         height = +svg.attr("height") - margin.top - margin.bottom;
 
 
@@ -94,11 +100,22 @@ export default {
           .attr('font-size', '9px')
 
           bar_container.append('rect')
+          .attr("class", "bar-shadow")
+          .attr("x", function(d) { return x(d.Date) + 10 })
+          .attr("y", function(d) { return y(-d.totalDePlata -20)})
+          .attr("width", 120)
+          .attr("height", function(d) { return height - y(-d.totalDePlata) -10 })
+          .attr("fill", "#aaa")
+          .attr("opacity", "0.5")
+
+
+          bar_container.append('rect')
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.Date) })
           .attr("y", function(d) { return y(-d.totalDePlata )})
-          .attr("width", 70)
-          .attr("height", function(d) { return height - y(-d.totalDePlata) });
+          .attr("width", 120)
+          .attr("height", function(d) { return height - y(-d.totalDePlata) })
+          // .attr('filter', 'url(#shadow)');
 
           this.valoareCrestere();
     },
@@ -108,16 +125,8 @@ export default {
     },
 
 
-    aniInLuni(ani) {
-      this.robor.perioada = ani * 12
-    }
   },
 
-  data () {
-    return {
-
-    }
-  },
 
   watch: {
       genereazaGrafic: {
@@ -132,5 +141,33 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
+
+.page-container {
+	display: flex;
+	flex: 1 0 auto;
+	    padding: 1rem;
+	    width: 100%;
+}
+	.section {
+		flex-basis: 40%;
+	}
+
+	.svg-container {
+		flex-basis: 60%;
+	}
+	svg {
+		width: 100%;
+	}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+
 </style>

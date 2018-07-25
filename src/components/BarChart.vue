@@ -107,16 +107,5 @@ export default {
 
 <style>
 
-.bar {
-  fill: steelblue;
-}
-
-.bar:hover {
-  fill: brown;
-}
-
-.axis--x path {
-  display: none;
-}
 
 </style>

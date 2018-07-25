@@ -1,13 +1,17 @@
 <template>
-  <div class="container">
-    <bars v-on:calculeaza="calculeazaRate()" :genereazaGrafic="genereazaGrafic" :robor="robor"></bars>
-    <barchart :genereazaGrafic="genereazaGrafic" :robor="robor"></barchart>
-    <pre>
+  <div class="app-container">
+    <bars :genereazaGrafic="genereazaGrafic" :robor="robor"></bars>
+    <barchart v-if="genereazaGraficMare" :genereazaGrafic="genereazaGraficMare" :robor="robor"></barchart>
+        <div class="footer">
+      * Calcul pentru un credit de <input type="number" v-model="robor.credit"/> pe  <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in  <input type="date" v-model="robor.dataInceput"/> <button type="button" @click="calculeazaRate">Calculeaza</button>
+    </div>
+
+<!--     <pre>
       Rata
       {{robor.valoriRoborUtilizator}}
       Media 2016
       {{robor.valoriGraficComparativ}}
-    </pre>
+    </pre> -->
   </div>
 </template>
 
@@ -33,6 +37,7 @@ export default {
  data() {
     return {
       genereazaGrafic: false,
+      genereazaGraficMare: false,
       robor: {
         rata_2016: null,
         credit: 250000,
@@ -195,6 +200,10 @@ export default {
 
 
 
+    aniInLuni(ani) {
+      this.robor.perioada = ani * 12
+    }
+
   },
 
 }
@@ -216,4 +225,28 @@ li {
 a {
   color: #42b983;
 }
+
+.app-container {
+      height: calc(100vh - 8rem);
+    width: calc(100vw - 8rem);
+    margin: 4rem;
+    background: #e32b25;
+}
+
+.footer {
+  padding: 1rem;
+  text-align: center;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid red;
+    max-width: 83px;
+    text-align: center;
+}
+
+input[type="date"] {
+      max-width: 127px;
+}
+
 </style>

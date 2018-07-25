@@ -1,5 +1,32 @@
+
+body,html{
+
+	margin: 0;
+}
+
+
+* {
+	box-sizing: border-box;
+}
+
+
+
 .container {
 	width: 80%;
 	max-width: 1200px;
 	margin: auto;
+	height: 100%;
+}
+
+
+.bar {
+  fill: #aaa;
+}
+
+.bar:hover {
+  fill: red;
+}
+
+.axis--x path {
+  display: none;
 }

@@ -94,34 +94,65 @@ export default {
 
 
           bar_container.append('text')
-          .text(function(d){return -d.totalDePlata})
-          .attr("x", function(d) { return x(d.Date) })
-          .attr("y", function(d) { return y(-d.totalDePlata )})
-          .attr('font-size', '9px')
+          .text(function(d){return parseInt(-d.totalDePlata) + ' lei' })
+          .attr("x", function(d) { return x(d.Date) + 120/4 })
+          .attr("y", function(d) { return y(-d.totalDePlata ) + 80})
+          .attr('font-size', '20px')
+          .attr("width", 120)
+
 
           bar_container.append('rect')
           .attr("class", "bar-shadow")
           .attr("x", function(d) { return x(d.Date) + 10 })
-          .attr("y", function(d) { return y(-d.totalDePlata -20)})
+          .attr("y", function(d) { return y(-d.totalDePlata) + 110 })
           .attr("width", 120)
-          .attr("height", function(d) { return height - y(-d.totalDePlata) -10 })
-          .attr("fill", "#aaa")
+          .attr("height", function(d) { return height - y(-d.totalDePlata) - 120 })
+          .attr("fill", "rgba(0,0,0,0.5)")
           .attr("opacity", "0.5")
 
 
           bar_container.append('rect')
           .attr("class", "bar")
           .attr("x", function(d) { return x(d.Date) })
-          .attr("y", function(d) { return y(-d.totalDePlata )})
+          .attr("y", function(d) { return y(-d.totalDePlata) + 100})
           .attr("width", 120)
-          .attr("height", function(d) { return height - y(-d.totalDePlata) })
+          .attr("height", function(d) { return height - y(-d.totalDePlata) - 100 })
           // .attr('filter', 'url(#shadow)');
 
-          this.valoareCrestere();
+          let diferenta = this.valoareCrestere();
+          console.log(diferenta)
+
+        var diferenta_rect =  bar_container.append('rect')
+          .attr("class", "bar-difference")
+          .attr("x", function(d) { return x(d.Date) })
+          .attr("y", function(d) {return y(-d.totalDePlata) + 100})
+          .attr("width", function(d) { if(d.Date != '2016') 
+          									return 120 
+          								else 
+          									return 0  })
+          .attr("height", function(d) { return height - y(diferenta)  })
+          .attr('fill','black')
+          // .attr('filter', 'url(#shadow)');
+
+          let textwidth = 0;
+          bar_container.append('text')
+          .text(function(d){if(d.Date != '2016') return '+' + parseInt(diferenta) + ' lei' })
+          .attr("x", function(d) { 
+           textwidth = this.getBBox().width
+          	return x(d.Date) + 120/2 - 10
+          })
+          .attr("y", function(d) { return y(-d.totalDePlata ) + diferenta/2 - 10})
+          .attr('font-size', '20px')
+          .attr("width", 120)
+          .attr('fill', 'white')
+          .attr('transform',"translate(" + -textwidth/2 + "," + 0 + ")")
+
+
     },
 
     valoareCrestere(){
       this.valoareCrestereRata = parseInt(-this.robor.valoriGraficComparativ[1].totalDePlata -  ( - this.robor.valoriGraficComparativ[0].totalDePlata))
+      return this.valoareCrestereRata
     },
 
 

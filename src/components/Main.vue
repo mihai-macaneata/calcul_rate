@@ -203,7 +203,7 @@ export default {
     aniInLuni(ani) {
       this.robor.perioada = ani * 12
     }
-
+    
   },
 
 }

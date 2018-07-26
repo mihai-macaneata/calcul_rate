@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <bars :genereazaGrafic="genereazaGrafic" :robor="robor"></bars>
-    <barchart v-if="genereazaGraficMare" :genereazaGrafic="genereazaGraficMare" :robor="robor"></barchart>
+    <bars :genereazaGrafic.sync="genereazaGrafic" :robor="robor"></bars>
+    <!-- <barchart v-if="genereazaGraficMare" :genereazaGrafic="genereazaGraficMare" :robor="robor"></barchart> -->
         <div class="footer">
       * Calcul pentru un credit de <input type="number" v-model="robor.credit"/> pe  <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in  <input type="date" v-model="robor.dataInceput"/> <button type="button" @click="calculeazaRate">Calculeaza</button>
     </div>
@@ -31,7 +31,6 @@ export default {
 
 
   created(){
-
   },
 
  data() {
@@ -41,7 +40,7 @@ export default {
       robor: {
         rata_2016: null,
         credit: 250000,
-        perioada: null,
+        perioada: 240,
         dataInceput: '2016-01-29',
         roborMarja: 2.5,
         valoriRoborUtilizator: [],
@@ -59,21 +58,18 @@ export default {
 
     calculeazaRata(credit) {
       const self = this;
-
-      // this.PPMT(0.0335 / 12, 1, 240, 250000)
-
-      // this.PPMT(0.0335 / 12, 1, 240, 250000)
-
       this.construireValoriRobor(this.robor.dataInceput).then((response) => {
-        self.faChestiiEconomice(response)
+        self.faChestiiEconomice()
       }).catch((error) => {
         console.log(error)
       })
     },
 
 
-    faChestiiEconomice(data){
+    faChestiiEconomice(){
+      const data = this.robor.valoriRoborUtilizator
       for(let item of data) {
+        item.robor_nemodificat = item.ROBOR
         let roborProcente = ((parseFloat(item.ROBOR) + 2.5) / 100)/12
         item.ROBOR = roborProcente
         item.perioadaRamasa = this.robor.perioada
@@ -97,13 +93,11 @@ export default {
           item.sumaRamasa =Math.round(item.sumaRamasa * 100) / 100
           item.totalDePlata = item.rata + item.ppal
         }
-
         // console.log('--------------------------------------------------')
-
-
       }
 
       let pentruMedie = []
+      this.robor.valoriGrafic = []
 
       for(let item of data) {
           let anul = item.Date.split('-')[0]
@@ -120,13 +114,16 @@ export default {
 
       const result = average(pentruMedie); // 5
 
-      console.log(result);
 
 
       let media_2016 = {
         Date: 2016,
-        totalDePlata: -result
+        totalDePlata: -result,
+        robor_nemodificat: 0.78,
       }
+
+      this.robor.valoriGraficComparativ = []
+
       this.robor.valoriGraficComparativ.push(media_2016)
       this.robor.valoriGraficComparativ.push(data[data.length-1])
 
@@ -144,14 +141,17 @@ export default {
       return new Promise(function(resolve, reject) {
         let dataPrelucrata = dataDeInceput.split('-').splice(0, 2).join('-')
         let iteratorIndex = -1
-        for (let val of valoriRoborLuni) {
+
+        let valoriRoborLuniModificate = JSON.parse(JSON.stringify(valoriRoborLuni))
+
+        for (let val of valoriRoborLuniModificate) {
           if (val.Date === dataPrelucrata) {
-            iteratorIndex = valoriRoborLuni.indexOf(val)
+            iteratorIndex = valoriRoborLuniModificate.indexOf(val)
             break;
           }
         }
-        for (iteratorIndex; iteratorIndex < valoriRoborLuni.length; iteratorIndex++) {
-          self.robor.valoriRoborUtilizator.push(valoriRoborLuni[iteratorIndex])
+        for (iteratorIndex; iteratorIndex < valoriRoborLuniModificate.length; iteratorIndex++) {
+          self.robor.valoriRoborUtilizator.push(valoriRoborLuniModificate[iteratorIndex])
         }
         resolve(self.robor.valoriRoborUtilizator);
       });
@@ -205,6 +205,26 @@ export default {
     }
     
   },
+
+    watch: {
+      genereazaGrafic: {
+         handler(val){
+          if(val === false){
+            this.robor = {
+              rata_2016: null,
+              credit: 250000,
+              perioada: null,
+              dataInceput: '2016-01-29',
+              roborMarja: 2.5,
+              valoriRoborUtilizator: [],
+              valoriGrafic: [],
+              valoriGraficComparativ: [],
+            }
+          }
+         },
+         deep: true
+      }
+    }
 
 }
 </script>

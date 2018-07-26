@@ -30,3 +30,7 @@ body,html{
 .axis--x path {
   display: none;
 }
+
+.axis {
+	display: none;
+}

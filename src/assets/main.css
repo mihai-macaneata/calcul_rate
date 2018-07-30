@@ -27,10 +27,42 @@ body,html{
   fill: red;
 }
 
-.axis--x path {
+.bar-chart .bar {
+	fill: black;
+}
+
+.bar-chart .axis {
+	display: none;
+}
+
+.bars .axis--x path {
   display: none;
 }
 
-.axis {
-	display: none;
+
+
+.page-container {
+	display: flex;
+	flex: 1 0 auto;
+	    padding: 1rem;
+	    width: 100%;
+}
+	.section {
+		flex-basis: 40%;
+	}
+
+	.svg-container {
+		flex-basis: 60%;
+		margin-bottom: -1rem;
+	}
+	svg {
+		width: 100%;
+	}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

@@ -46,6 +46,7 @@ export default {
 
     renderStuff() {
       let data = this.robor.valoriGraficComparativ;
+    	console.log(data)
       const svg = d3.select('svg.bars');
       this.renderChart(svg, data)
     },
@@ -75,6 +76,7 @@ export default {
       }
 
       let parsedData = JSON.parse(JSON.stringify(data));
+      
       x.domain(parsedData.map(function(d) {
         return d.Date
       }));
@@ -140,10 +142,10 @@ export default {
         })
         .attr('font-size', '32px')
         .attr("x", function(d) {
-        	console.log('barsizewidth', barSizeWidth)
-        	console.log('bbox', this.getBBox().width)
+        	// console.log('barsizewidth', barSizeWidth)
+        	// console.log('bbox', this.getBBox().width)
 
-        	console.log('width', barSizeWidth - this.getBBox().width)
+        	// console.log('width', barSizeWidth - this.getBBox().width)
           return x(d.Date) + (barSizeWidth - this.getBBox().width)/2
 
         })
@@ -191,7 +193,6 @@ export default {
           return x(d.Date) + (barSizeWidth - this.getBBox().width)/2
         })
         .attr("y", function(d) {
-        	console.log(diferenta)
           return y(-d.totalDePlata) + textMarginTop/2 + diferenta / 4
         })
         .attr("width", barSizeWidth)
@@ -205,7 +206,6 @@ export default {
    		.append('text')
    		.text(function(d) {
         	if(d.Date != '2016') {
-        		console.log(d.Date)
         		return `ROBOR ${d.robor_nemodificat}`
         	} else {
         		return `ROBOR ${d.robor_nemodificat}`
@@ -266,7 +266,6 @@ export default {
     },
 
     doTheDate(date) {
-    	console.log(date)
     	let dateArr = date.split('-');
     	return `${dateArr[1]} ${dateArr[0]}`
     },
@@ -291,32 +290,6 @@ export default {
 </script>
 
 <style scoped>
-
-.page-container {
-	display: flex;
-	flex: 1 0 auto;
-	    padding: 1rem;
-	    width: 100%;
-}
-	.section {
-		flex-basis: 40%;
-	}
-
-	.svg-container {
-		flex-basis: 60%;
-		margin-bottom: -1rem;
-	}
-	svg {
-		width: 100%;
-	}
-
-.bars {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
 
 
 

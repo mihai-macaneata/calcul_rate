@@ -1,17 +1,14 @@
 <template>
   <div class="app-container">
-    <bars :genereazaGrafic.sync="genereazaGrafic" :robor="robor"></bars>
-    <!-- <barchart v-if="genereazaGraficMare" :genereazaGrafic="genereazaGraficMare" :robor="robor"></barchart> -->
+    <bars v-show="!genereazaGraficMare && genereazaGrafic" :genereazaGrafic.sync="genereazaGrafic" :robor="robor"></bars>
+    <barchart :genereazaGraficMare.sync="genereazaGraficMare" :robor="robor"></barchart>
         <div class="footer">
-      * Calcul pentru un credit de <input type="number" v-model="robor.credit"/> pe  <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in  <input type="date" v-model="robor.dataInceput"/> <button type="button" @click="calculeazaRate">Calculeaza</button>
+      * Calcul pentru un credit de
+        <input @change="userInput" type="number" v-model="robor.credit"/> pe 
+        <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in 
+        <input @blur="userInput"   type="date" v-model="robor.dataInceput"/> 
+        <button type="button" @click="calculeazaRate">Calculeaza</button>
     </div>
-
-<!--     <pre>
-      Rata
-      {{robor.valoriRoborUtilizator}}
-      Media 2016
-      {{robor.valoriGraficComparativ}}
-    </pre> -->
   </div>
 </template>
 
@@ -31,15 +28,18 @@ export default {
 
 
   created(){
+    this.calculeazaRate();
   },
 
  data() {
     return {
       genereazaGrafic: false,
       genereazaGraficMare: false,
+      userGenerated: false,
       robor: {
         rata_2016: null,
         credit: 250000,
+        ani: 20,
         perioada: 240,
         dataInceput: '2016-01-29',
         roborMarja: 2.5,
@@ -130,15 +130,19 @@ export default {
 
       this.robor.rata_2016 = result
 
-      this.genereazaGrafic = true;
-
-
+      this.genereazaGraficPeLuni();
 
     },
+
+    userInput() {
+      this.userGenerated = true;
+    },
+
 
     construireValoriRobor(dataDeInceput) {
       const self = this
       return new Promise(function(resolve, reject) {
+        self.robor.valoriRoborUtilizator = [];
         let dataPrelucrata = dataDeInceput.split('-').splice(0, 2).join('-')
         let iteratorIndex = -1
 
@@ -198,10 +202,15 @@ export default {
       return ppmt
     },
 
+    genereazaGraficPeLuni() {
+      this.genereazaGraficMare = true;
+    },
 
 
     aniInLuni(ani) {
+
       this.robor.perioada = ani * 12
+      this.userInput()
     }
     
   },
@@ -210,16 +219,41 @@ export default {
       genereazaGrafic: {
          handler(val){
           if(val === false){
-            this.robor = {
-              rata_2016: null,
-              credit: 250000,
-              perioada: null,
-              dataInceput: '2016-01-29',
-              roborMarja: 2.5,
-              valoriRoborUtilizator: [],
-              valoriGrafic: [],
-              valoriGraficComparativ: [],
+            if(this.userGenerated) {
+              this.robor = {
+                rata_2016: this.robor.rata_2016,
+                credit: this.robor.credit,
+                ani: this.robor.ani,
+                dataInceput: this.robor.dataInceput,
+                roborMarja: 2.5,
+                valoriRoborUtilizator: [],
+                valoriGrafic: [],
+                valoriGraficComparativ: [],
+              }
             }
+
+            this.aniInLuni(this.robor.ani);
+          }
+         },
+         deep: true
+      },
+      genereazaGraficMare: {
+         handler(val){
+          if(val === false){
+            if(this.userGenerated) {
+              this.robor = {
+                rata_2016: this.robor.rata_2016,
+                credit: this.robor.credit,
+                ani: this.robor.ani,
+                dataInceput: this.robor.dataInceput,
+                roborMarja: 2.5,
+                valoriRoborUtilizator: [],
+                valoriGrafic: [],
+                valoriGraficComparativ: [],
+              }
+            }
+
+            this.aniInLuni(this.robor.ani);
           }
          },
          deep: true

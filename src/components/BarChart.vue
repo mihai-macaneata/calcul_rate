@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 100%"  class="page-container" >
+    <div class="page-container bar-chart">
       <h1>
         Cum a crescut rata în timpul guvernării PSD
       </h1>
@@ -20,11 +20,13 @@ export default {
 
   props: {
     robor: null,
-    genereazaGraficMare: false
+    genereazaGraficMare: false,
+    graphicShow: null,
+    reseteazaRobor: false,
   },
 
   created() {
-    console.log(this.genereazaGraficMare)
+   console.log(this.genereazaGraficMare)
   },
 
   mounted(){
@@ -32,7 +34,8 @@ export default {
 
   methods: {
     prepareData(){
-      let media2016 = - this.robor.valoriGraficComparativ[0].totalDePlata
+      let datePentruMedie = JSON.parse(JSON.stringify(this.robor.valoriGraficComparativ)) 
+      let media2016 = - datePentruMedie[0].totalDePlata
       let valoareReferinta = 0;
       let valoriFinale = JSON.parse(JSON.stringify(this.robor.valoriGrafic))
       for(let val of valoriFinale) {
@@ -51,7 +54,7 @@ export default {
 
        const svg = d3.select('svg.bar-chart');
 
-      console.log(valoriFinale)
+      // console.log(valoriFinale)
 
       this.renderChart(svg,valoriFinale)
 
@@ -82,8 +85,6 @@ export default {
 
           x.domain(parsedData.map(function(d) { return d.Date }));
           y.domain([0, d3.max(parsedData, function(d) { return -d.totalDePlata })]);
-
-          console.log(height)
 
        
           if (this.rendered) {
@@ -308,7 +309,9 @@ export default {
         bar_container.exit().remove();
 
 
+      this.$emit('update:reseteazaRobor', true)
       this.$emit('update:genereazaGraficMare', false)
+
       this.rendered = true;
   	},
   },
@@ -317,7 +320,7 @@ export default {
     genereazaGraficMare: {
       handler(val) {
         if (val === true) {
-          this.prepareData();
+            this.prepareData();
         }
       },
       deep: true
@@ -351,6 +354,11 @@ export default {
 
   .page-container {
     flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
 

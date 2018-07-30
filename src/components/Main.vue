@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <bars v-show="!genereazaGraficMare && genereazaGrafic" :genereazaGrafic.sync="genereazaGrafic" :robor="robor"></bars>
-    <barchart :genereazaGraficMare.sync="genereazaGraficMare" :robor="robor"></barchart>
-        <div class="footer">
+    <bars :class="{hidden: !graphicShow}" :graphicShow.sync="graphicShow" :genereazaGraficMare.sync="genereazaGraficMare" :genereazaGrafic.sync="genereazaGrafic" :robor="robor"></bars>
+    <barchart :class="{hidden: graphicShow}" :graphicShow.sync="graphicShow" :reseteazaRobor.sync="reseteazaRobor" :genereazaGraficMare.sync="genereazaGraficMare" :robor="robor"></barchart>
+    <div class="footer">
       * Calcul pentru un credit de
         <input @change="userInput" type="number" v-model="robor.credit"/> pe 
         <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in 
@@ -36,6 +36,8 @@ export default {
       genereazaGrafic: false,
       genereazaGraficMare: false,
       userGenerated: false,
+      graphicShow: true,
+      reseteazaRobor: false,
       robor: {
         rata_2016: null,
         credit: 250000,
@@ -130,7 +132,8 @@ export default {
 
       this.robor.rata_2016 = result
 
-      this.genereazaGraficPeLuni();
+
+      this.genereazaGrafic = true;
 
     },
 
@@ -202,10 +205,6 @@ export default {
       return ppmt
     },
 
-    genereazaGraficPeLuni() {
-      this.genereazaGraficMare = true;
-    },
-
 
     aniInLuni(ani) {
 
@@ -216,30 +215,10 @@ export default {
   },
 
     watch: {
-      genereazaGrafic: {
-         handler(val){
-          if(val === false){
-            if(this.userGenerated) {
-              this.robor = {
-                rata_2016: this.robor.rata_2016,
-                credit: this.robor.credit,
-                ani: this.robor.ani,
-                dataInceput: this.robor.dataInceput,
-                roborMarja: 2.5,
-                valoriRoborUtilizator: [],
-                valoriGrafic: [],
-                valoriGraficComparativ: [],
-              }
-            }
 
-            this.aniInLuni(this.robor.ani);
-          }
-         },
-         deep: true
-      },
-      genereazaGraficMare: {
+     reseteazaRobor: {
          handler(val){
-          if(val === false){
+          if(val === true){
             if(this.userGenerated) {
               this.robor = {
                 rata_2016: this.robor.rata_2016,
@@ -252,6 +231,7 @@ export default {
                 valoriGraficComparativ: [],
               }
             }
+            this.reseteazaRobor = false
 
             this.aniInLuni(this.robor.ani);
           }
@@ -265,26 +245,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 
 .app-container {
-      height: calc(100vh - 8rem);
+      height: calc(100vh - 4rem);
     width: calc(100vw - 8rem);
-    margin: 4rem;
+    margin: 2rem 4rem;
     background: #e32b25;
+    position: relative;
+    overflow: hidden;
 }
 
 .footer {

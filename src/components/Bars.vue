@@ -1,6 +1,5 @@
 <template>
 	<div class="bars">
-
 		<div class="page-container">
 			<div class="section">
 				<div class="left">
@@ -10,8 +9,8 @@
 					<p>din cauză că ROBOR, stabil în 2016 la ~0,78%, a urcat la 3,15% în timpul guvernării PSD. </p>
 				</div>
 			</div>
-			<div ref="svgCont" class="section svg-container">
-	    		<svg  class="bars" width="100%" height="500">
+			<div @click="changeChart" ref="svgCont" class="section svg-container">
+	    		<svg class="bars" width="100%" height="500">
 	    		<!-- 	 <defs>
 					    <filter id="shadow" x="0" y="0" width="200%" height="200%">
 					      <feOffset result="offOut" in="SourceAlpha" color="#eee" height="85%" dx="10" dy="5" />
@@ -34,6 +33,7 @@ export default {
   props: {
     robor: null,
     genereazaGrafic: false,
+    graphicShow: null,
   },
   data() {
     return {
@@ -41,14 +41,18 @@ export default {
       rendered: false
     }
   },
-  created() {},
+  created() {console.log('created bars')},
   methods: {
 
     renderStuff() {
-      let data = this.robor.valoriGraficComparativ;
-    	console.log(data)
+      let data = JSON.parse(JSON.stringify(this.robor.valoriGraficComparativ));
       const svg = d3.select('svg.bars');
       this.renderChart(svg, data)
+    },
+
+    changeChart(){
+      this.$emit('update:graphicShow', false)
+      // this.$destroy()
     },
 
     renderChart(svg, data) {
@@ -76,7 +80,6 @@ export default {
       }
 
       let parsedData = JSON.parse(JSON.stringify(data));
-      
       x.domain(parsedData.map(function(d) {
         return d.Date
       }));
@@ -260,9 +263,10 @@ export default {
 
       bar_container.exit().remove();
 
-
       this.$emit('update:genereazaGrafic', false)
       this.rendered = true;
+      this.$emit('update:genereazaGraficMare', true)
+
     },
 
     doTheDate(date) {

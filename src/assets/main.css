@@ -59,10 +59,34 @@ body,html{
 		width: 100%;
 	}
 
-.bars {
+div.bars {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  /*height: 100%;*/
+      height: calc(100% - 54px);
+}
+
+svg.bars {
+	height: 100%;
+}
+
+.bar-chart.page-container {
+      height: calc(100% - 54px);
+
+}
+
+
+.hidden {
+	transform:translateX(150%);
+}
+
+div.bars, div.bar-chart {
+	transition: all 500ms;
+}
+
+
+.footer {
+	background: white;
 }

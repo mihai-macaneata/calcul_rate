@@ -1,5 +1,6 @@
 <template>
 	<div class="bars">
+    <button @click='changeChart'> > </button>
 		<div class="page-container">
 			<div class="section">
 				<div class="left">
@@ -9,7 +10,7 @@
 					<p>din cauză că ROBOR, stabil în 2016 la ~0,78%, a urcat la 3,15% în timpul guvernării PSD. </p>
 				</div>
 			</div>
-			<div @click="changeChart" ref="svgCont" class="section svg-container">
+			<div ref="svgCont" class="section svg-container">
 	    		<svg class="bars" width="100%" height="500">
 	    		<!-- 	 <defs>
 					    <filter id="shadow" x="0" y="0" width="200%" height="200%">
@@ -294,7 +295,22 @@ export default {
 </script>
 
 <style scoped>
+button {
+      background: none;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 3rem;
+    color: white;
+    opacity: 0.5;
+    height: 100%;
+}
 
+button:hover {
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
 
 
 </style>

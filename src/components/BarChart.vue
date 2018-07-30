@@ -1,5 +1,7 @@
 <template>
     <div class="page-container bar-chart">
+    <button @click='changeChart'> < </button>
+
       <h1>
         Cum a crescut rata în timpul guvernării PSD
       </h1>
@@ -58,6 +60,10 @@ export default {
 
       this.renderChart(svg,valoriFinale)
 
+    },
+
+    changeChart(val) {
+      this.$emit('update:graphicShow', val)
     },
 
   	renderChart(svg, data) {
@@ -360,6 +366,25 @@ export default {
     right: 0;
     bottom: 0;
   }
+
+
+button {
+      background: none;
+    border: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 3rem;
+    color: white;
+    opacity: 0.5;
+    height: 100%
+}
+
+button:hover {
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
+
 
 
 </style>

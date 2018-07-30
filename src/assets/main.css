@@ -66,6 +66,7 @@ div.bars {
   align-items: center;
   /*height: 100%;*/
       height: calc(100% - 54px);
+      position: relative;
 }
 
 svg.bars {

@@ -1,16 +1,15 @@
 <template>
 	<div class="bars">
-    <button @click='changeChart'> > </button>
+    <!-- <button @click='changeChart'> > </button> -->
 		<div class="page-container">
-			<div class="section">
-				<div class="left">
-					<h2>Crește ROBOR, <div><small>crește rata!</small></div></h2>
-					<h1>{{valoareCrestereRata}} <small>lei</small></h1>
-					<h3>plătiți în plus doar în ultima lună</h3>
-					<p>din cauză că ROBOR, stabil în 2016 la ~0,78%, a urcat la 3,15% în timpul guvernării PSD. </p>
-				</div>
+			<div class="section text-section">
+					<h1>Crește ROBOR, <div><small>crește rata!</small></div></h1>
+					<h1 style="color: white;">{{valoareCrestereRata}} <small>lei</small> <span class="arrow-left">↗</span> </h1> 
+					<h3 style="color: white;">plătiți în plus doar în ultima lună</h3>
+					<h4>din cauză că ROBOR, stabil în 2016 la ~0,78%, a urcat la 3,15% în timpul guvernării PSD. </h4>
 			</div>
-			<div ref="svgCont" class="section svg-container">
+			<div style="cursor: pointer" @click="changeChart" ref="svgCont" class="section svg-container">
+        <span class="arrow-right">↗</span>
 	    		<svg class="bars" width="100%" height="500">
 	    		<!-- 	 <defs>
 					    <filter id="shadow" x="0" y="0" width="200%" height="200%">
@@ -77,7 +76,7 @@ export default {
         var g = svg.select("g.main-group")
       } else {
         var g = svg.append("g").attr('class', 'main-group')
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          .attr("transform", "translate(" + -width/4 + "," + margin.top + ")")
       }
 
       let parsedData = JSON.parse(JSON.stringify(data));
@@ -108,17 +107,17 @@ export default {
       bar_container.append('rect')
         .attr("class", "bar-shadow")
         .attr("x", function(d) {
-          return x(d.Date)
+          return x(d.Date) + 10
         })
         .attr("y", function(d) {
-          return y(-d.totalDePlata) + textMarginTop
+          return y(-d.totalDePlata) + textMarginTop + 10
         })
         .attr("width", barSizeWidth)
         .attr("height", function(d) {
           return height - y(-d.totalDePlata) - textMarginTop
         })
         .attr("fill", "rgba(0,0,0,0.5)")
-        .attr("opacity", "0.5")
+        .attr("opacity", "0.4")
 
 
       bar_container.append('rect')
@@ -312,5 +311,34 @@ button:hover {
   cursor: pointer;
 }
 
+.text-section {
+  font-size: 130%;
+}
+
+.text-section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+      margin-left: 5rem;
+}
+
+.text-section > * {
+  width: 100%;
+  text-align: left;
+}
+
+.arrow-left, .arrow-right{
+  color: rgba(0,0,0,0.2);
+  font-size: 8rem;
+}
+
+.arrow-right {
+position: absolute;
+    right: 1rem;
+    font-size: 15rem;
+    top: 70%;
+    transform: translateY(-40%);
+    color: rgba(255,255,255,0.2);
+}
 
 </style>

@@ -369,20 +369,22 @@ export default {
 
 
 button {
-      background: none;
+    background: none;
     border: none;
     position: absolute;
     left: 0;
     top: 0;
-    font-size: 3rem;
-    color: white;
-    opacity: 0.5;
-    height: 100%
+    font-size: 5rem;
+    color: #00000033;
+    opacity: 0.3;
+    height: 100%;
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 1px;
+  cursor: pointer;
 }
 
 button:hover {
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
+  color: white;
 }
 
 

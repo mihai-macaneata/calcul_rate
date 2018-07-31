@@ -1,21 +1,21 @@
+body,
+html {
 
-body,html{
-
-	margin: 0;
+  margin: 0;
 }
 
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 
 
 .container {
-	width: 80%;
-	max-width: 1200px;
-	margin: auto;
-	height: 100%;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  height: 100%;
 }
 
 
@@ -28,11 +28,11 @@ body,html{
 }
 
 .bar-chart .bar {
-	fill: black;
+  fill: black;
 }
 
 .bar-chart .axis {
-	display: none;
+  display: none;
 }
 
 .bars .axis--x path {
@@ -42,22 +42,24 @@ body,html{
 
 
 .page-container {
-	display: flex;
-	flex: 1 0 auto;
-	    padding: 1rem;
-	    width: 100%;
+  display: flex;
+  flex: 1 0 auto;
+  padding: 1rem;
+  width: 100%;
 }
-	.section {
-		flex-basis: 40%;
-	}
 
-	.svg-container {
-		flex-basis: 60%;
-		margin-bottom: -1rem;
-	}
-	svg {
-		width: 100%;
-	}
+.section {
+  flex-basis: 40%;
+}
+
+.svg-container {
+  flex-basis: 50%;
+  margin-bottom: -1rem;
+}
+
+svg {
+  width: 100%;
+}
 
 div.bars {
   display: flex;
@@ -65,29 +67,87 @@ div.bars {
   justify-content: center;
   align-items: center;
   /*height: 100%;*/
-      height: calc(100% - 54px);
-      position: relative;
+  height: calc(100% - 54px);
+  position: relative;
 }
 
 svg.bars {
-	height: 100%;
+  height: 100%;
+  z-index: 1;
+  position: relative;
 }
 
 .bar-chart.page-container {
-      height: calc(100% - 54px);
-
+  height: calc(100% - 54px);
 }
 
 
 .hidden {
-	transform:translateX(150%);
+  transform: translateX(150%);
 }
 
-div.bars, div.bar-chart {
-	transition: all 500ms;
+div.bars,
+div.bar-chart {
+  transition: all 500ms;
 }
 
 
 .footer {
-	background: white;
+  background: white;
+}
+
+h1 {
+  font-size: 4rem;
+  margin: 1rem 0;
+}
+
+
+.bars .page-container:before {
+  content: '';
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+  top: 34%;
+  right: -55%;
+  -webkit-transform: rotate(-60deg);
+  transform: rotate(-46deg);
+}
+
+.bars .page-container {
+  overflow: hidden;
+}
+
+div.bars {
+  overflow: hidden;
+}
+
+
+@media (max-width:  1000px) {
+	.app-container {
+		height: initial!important;
+		width: 100%!important;
+	}
+
+	.app-container {
+		margin: 0!important;
+		margin-bottom: 2rem;
+	}
+
+	div.bars {
+		height: initial;
+	}
+	.page-container {
+		flex-direction: column;
+	}
+	.svg-container {
+		max-height: 300px;
+	}
+
+	.text-section {
+		margin-left: 0!important;
+	}
+.bars .page-container:before {
+	display: none;
+}
 }

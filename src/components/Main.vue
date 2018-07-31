@@ -7,7 +7,7 @@
         <input @change="userInput" type="number" v-model="robor.credit"/> pe 
         <input type="number" v-model="robor.ani" @change="aniInLuni(robor.ani)" /> de ani inceput in 
         <input @blur="userInput"   type="date" v-model="robor.dataInceput"/> 
-        <button type="button" @click="calculeazaRate">Calculeaza</button>
+        <button class="btn-calc" type="button" @click="calculeazaRate">Calculeaza</button>
     </div>
   </div>
 </template>
@@ -270,6 +270,16 @@ input {
 
 input[type="date"] {
       max-width: 127px;
+}
+
+
+.btn-calc {
+  background: white;
+  border: 1px solid #e32b25;
+  padding: .2rem 1rem;
+  margin: .3rem;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 </style>

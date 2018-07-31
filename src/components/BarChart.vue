@@ -1,6 +1,8 @@
 <template>
     <div class="page-container bar-chart">
     <button @click='changeChart'> < </button>
+    <button class="right" @click='doShowFinal'> > </button>
+
 
       <h1>
         Cum a crescut rata în timpul guvernării PSD
@@ -25,6 +27,7 @@ export default {
     genereazaGraficMare: false,
     graphicShow: null,
     reseteazaRobor: false,
+    showFinal: false,
   },
 
   created() {
@@ -64,6 +67,10 @@ export default {
 
     changeChart(val) {
       this.$emit('update:graphicShow', val)
+    },
+
+    doShowFinal(){
+      this.$emit('update:showFinal', true)
     },
 
   	renderChart(svg, data) {
@@ -387,6 +394,9 @@ button:hover {
   color: white;
 }
 
-
+button.right {
+  left: initial;
+  right: 0;
+}
 
 </style>

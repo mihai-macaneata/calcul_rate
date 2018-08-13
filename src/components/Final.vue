@@ -58,29 +58,30 @@ export default {
     calculeazaCumparat(total) {
       console.log(total);
       if(total < 300) {
-        this.cumparat.img = "./static/casti.jpg"
+        this.cumparat.img = "/static/casti.jpg"
         this.cumparat.nume = "Casti wireless cu bluetooth"
       } else if(total > 300 && total < 700) {
-        this.cumparat.img = "./static/imprimanta.jpg"
+        this.cumparat.img = "/static/imprimanta.jpg"
         this.cumparat.nume = "Imprimanta"
       } else if(total > 700 && total < 1300) {
-        this.cumparat.img = "./static/tableta.jpg"
+        this.cumparat.img = "/static/tableta.jpg"
         this.cumparat.nume = "Tableta ~10inch"
       } else if(total > 1300 && total < 1700) {
-        this.cumparat.img = "./static/tv.jpg"
+        this.cumparat.img = "/static/tv.jpg"
         this.cumparat.nume = "Televizor cu diagonala de ~100cm"
       } else if(total > 1700 && total < 2300) {
-        this.cumparat.img = "./static/camera.jpg"
+        this.cumparat.img = "/static/camera.jpg"
         this.cumparat.nume = "Camera GoPro de ultima generatie"
       }  else if(total > 2300) {
-        this.cumparat.img = "./static/telefon.jpg"
-        this.cumparat.nume = "Cel putin un Samsung Galaxy S8"
+        this.cumparat.img = "/static/vacanta.jpg"
+        this.cumparat.nume = "cel puin o vacanta în Tenerife"
       }
     },
 
     shareFb(){
-     let imageUrl = window.location
-          window.open('http://www.facebook.com/sharer.php?m2w&u=' + encodeURIComponent(imageUrl + '/static/telefon.jpg'), 'sharer', 'toolbar=0,status=0,width=626,height=436');
+    let sharePage = this.cumparat.img.split('.')[0] + '.html'
+    let imageUrl = window.location
+          window.open('http://www.facebook.com/sharer.php?m2w&u=' + encodeURIComponent(imageUrl + sharePage), 'sharer', 'toolbar=0,status=0,width=626,height=436');
             return false;
     },
   },

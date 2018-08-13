@@ -2,7 +2,7 @@
   <div class="app-container">
     <bars :class="{hidden: !graphicShow && !showFinal}" :graphicShow.sync="graphicShow" :genereazaGraficMare.sync="genereazaGraficMare" :genereazaGrafic.sync="genereazaGrafic" :robor="robor"></bars>
     <barchart :class="{hidden: graphicShow && !showFinal}" :graphicShow.sync="graphicShow" :reseteazaRobor.sync="reseteazaRobor" :showFinal.sync="showFinal" :genereazaGraficMare.sync="genereazaGraficMare" :robor="robor"></barchart>
-    <final :class="{hidden: !showFinal}" :robor="roborFaraPSD"></final>
+    <final :class="{hidden: !showFinal}" :showFinal.sync="showFinal" :robor="roborFaraPSD"></final>
     <div class="footer">
       * Calcul pentru un credit de
         <input @change="userInput" type="number" v-model="robor.credit"/> pe 

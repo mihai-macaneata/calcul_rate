@@ -1,7 +1,7 @@
 <template>
     <div class="page-container bar-chart">
-    <button @click='changeChart'> < </button>
-    <button class="right" @click='doShowFinal'> > </button>
+    <button ref="navigation_1" class="btn-navigation not-shown" @click='changeChart'> < </button>
+    <button ref="navigation_2" class="btn-navigation right not-shown" @click='doShowFinal'> > </button>
 
 
       <h1>
@@ -337,6 +337,22 @@ export default {
         }
       },
       deep: true
+    },
+    graphicShow: {
+      handler(val) {
+        if(val === false) {
+          setTimeout(() => {
+                this.$nextTick(() => {
+                  this.$refs.navigation_2.classList.remove('not-shown')
+                  this.$refs.navigation_1.classList.remove('not-shown')
+                });
+          },900) 
+        } else {
+          this.$refs.navigation_2.classList.add('not-shown')
+          this.$refs.navigation_1.classList.add('not-shown')
+        }
+        
+      },
     }
   },
 
@@ -361,7 +377,7 @@ export default {
   .svg-container {
     width: 100%;
 
-    flex-basis: calc(100% - 10rem);
+    flex-grow: 1;
     overflow: hidden;
   }
 
@@ -372,31 +388,10 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+    height: calc(100vh - 8rem);
   }
 
 
-button {
-    background: none;
-    border: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 5rem;
-    color: #00000033;
-    opacity: 0.3;
-    height: 100%;
-    -webkit-text-stroke: black;
-    -webkit-text-stroke-width: 1px;
-  cursor: pointer;
-}
 
-button:hover {
-  color: white;
-}
-
-button.right {
-  left: initial;
-  right: 0;
-}
 
 </style>

@@ -24,7 +24,7 @@ html {
 }
 
 .bar:hover {
-  fill: red;
+  fill: #ccc;
 }
 
 .bar-chart .bar {
@@ -46,6 +46,7 @@ html {
   flex: 1 0 auto;
   padding: 1rem;
   width: 100%;
+      height: calc(100vh - 8rem);
 }
 
 .section {
@@ -67,7 +68,7 @@ div.bars {
   justify-content: center;
   align-items: center;
   /*height: 100%;*/
-  height: calc(100% - 54px);
+  /*height: calc(100% - 54px);*/
   position: relative;
 }
 
@@ -77,9 +78,6 @@ svg.bars {
   position: relative;
 }
 
-.bar-chart.page-container {
-  height: calc(100% - 54px);
-}
 
 
 .hidden {
@@ -94,6 +92,10 @@ div.bar-chart {
 
 .footer {
   background: white;
+}
+
+.final-wrapper {
+  transition: all 200ms;
 }
 
 h1 {
@@ -150,4 +152,61 @@ div.bars {
 .bars .page-container:before {
 	display: none;
 }
+}
+
+.bar-chart .svg-container {
+  min-width: 1200px;
+}
+
+.page-container.bar-chart {
+  overflow-x: auto;
+}
+
+
+
+.btn-navigation {
+    background: none;
+    border: none;
+    position: fixed;
+    top: 0;
+    /*top: 2rem;*/
+    /*bottom: 4.7rem;*/
+    font-size: 5rem;
+    color: white;
+    opacity: 0.9;
+    height: 100vh;
+    /*-webkit-text-stroke: black;*/
+    /*-webkit-text-stroke-width: 1px;*/
+  cursor: pointer;
+    transition: opacity 800ms;
+}
+
+.btn-navigation:not(.right) {
+    left: 60px;
+
+}
+
+.btn-navigation:hover {
+  color: #ddd;
+  text-shadow: 1px 1px 3px #444;
+}
+
+.btn-navigation.right {
+  right: 60px;
+}
+
+
+@media(min-width: 1000px) {
+   .svg-container {
+        max-height: calc(100vh - 8rem);
+  }
+}
+
+
+.not-shown {
+  opacity: 0;
+}
+
+.btn-navigation:focus {
+  outline: none;
 }

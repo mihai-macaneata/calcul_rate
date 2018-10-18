@@ -38,7 +38,6 @@ export default {
   },
 
   created(){
-  	// console.log(this.robor)
   	this.calculeazaProcente()
   },
 
@@ -74,15 +73,17 @@ export default {
         this.cumparat.nume = "Camera GoPro de ultima generatie"
       }  else if(total > 2300) {
         this.cumparat.img = "/static/vacanta.jpg"
-        this.cumparat.nume = "cel puin o vacanta în Tenerife"
+        this.cumparat.nume = "cel putin o vacanta în Tenerife"
       }
     },
 
     shareFb(){
     let sharePage = this.cumparat.img.split('.')[0] + '.html'
     let imageUrl = window.location
-          window.open('http://www.facebook.com/sharer.php?m2w&u=' + encodeURIComponent(imageUrl + sharePage), 'sharer', 'toolbar=0,status=0,width=626,height=436');
-            return false;
+    console.log(imageUrl + sharePage);
+
+    window.open('http://www.facebook.com/sharer.php?m2w&u=' + encodeURIComponent(imageUrl + sharePage), 'sharer', 'toolbar=0,status=0,width=626,height=436');
+      return false;
     },
   },
 

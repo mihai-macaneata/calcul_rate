@@ -78,11 +78,9 @@ export default {
     },
 
     shareFb(){
-    let sharePage = this.cumparat.img.split('.')[0] + '.html'
-    let imageUrl = window.location
-    console.log(imageUrl + sharePage);
+    let ratataUrl = window.location + '/static/ratata.html';
 
-    window.open('http://www.facebook.com/sharer.php?m2w&u=' + encodeURIComponent(imageUrl + sharePage), 'sharer', 'toolbar=0,status=0,width=626,height=436');
+    window.open('http://www.facebook.com/sharer.php?m2w&u=' + encodeURIComponent(ratataUrl), 'sharer', 'toolbar=0,status=0,width=626,height=436');
       return false;
     },
   },

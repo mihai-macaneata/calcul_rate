@@ -38,7 +38,7 @@ export default {
   },
 
   created(){
-  	console.log(this.robor)
+  	// console.log(this.robor)
   	this.calculeazaProcente()
   },
 
@@ -56,7 +56,7 @@ export default {
     },
 
     calculeazaCumparat(total) {
-      console.log(total);
+      // console.log(total);
       if(total < 300) {
         this.cumparat.img = "/static/casti.jpg"
         this.cumparat.nume = "Casti wireless cu bluetooth"
@@ -125,7 +125,7 @@ export default {
     right: 0;
     z-index: 100;
     background: #e32b25;
-    bottom: 54px;
+    /*bottom: 54px;*/
     height: initial;
     padding-left: 2rem;
   }
@@ -184,5 +184,19 @@ export default {
   	margin-top: 2rem;
   	display: inline-block;
   }
+
+  @media (max-width: 768px) {
+      .object-price {
+        font-size: 1.5rem;
+      }
+  }
+
+  @media (min-width: 1222px) {
+        .page-container {
+            bottom: 54px;
+        }
+  }
+
+
 
 </style>

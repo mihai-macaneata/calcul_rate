@@ -393,7 +393,19 @@ var valoriRoborLuni = [
    },
    {
       "Date":"2018-07",
-      "ROBOR":3.41
-   }
+      "ROBOR":3.47
+   },
+   {
+      "Date":"2018-08",
+      "ROBOR":3.22
+   },
+   {
+      "Date":"2018-09",
+      "ROBOR":3.17
+   },
+   {
+      "Date":"2018-10",
+      "ROBOR":3.17
+   }, 
 ]
 export default valoriRoborLuni

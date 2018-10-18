@@ -1,15 +1,16 @@
 body,
 html {
-
   margin: 0;
+  font-size: 16px;
 }
 
+body {
+    overflow-x: hidden;
+}
 
 * {
   box-sizing: border-box;
 }
-
-
 
 .container {
   width: 80%;
@@ -17,7 +18,6 @@ html {
   margin: auto;
   height: 100%;
 }
-
 
 .bar {
   fill: #aaa;
@@ -32,21 +32,21 @@ html {
 }
 
 .bar-chart .axis {
-  display: none;
+  /* display: none; */
 }
 
 .bars .axis--x path {
-  display: none;
+  /*display: none;*/
 }
-
-
 
 .page-container {
   display: flex;
   flex: 1 0 auto;
   padding: 1rem;
   width: 100%;
-      height: calc(100vh - 8rem);
+  /*height: calc(100% - 97px);*/
+  /*overflow-x: auto;
+  overflow-y: hidden;*/
 }
 
 .section {
@@ -67,9 +67,8 @@ div.bars {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /*height: 100%;*/
-  /*height: calc(100% - 54px);*/
   position: relative;
+  height: calc(100% - 4rem);
 }
 
 svg.bars {
@@ -77,8 +76,6 @@ svg.bars {
   z-index: 1;
   position: relative;
 }
-
-
 
 .hidden {
   transform: translateX(150%);
@@ -89,9 +86,8 @@ div.bar-chart {
   transition: all 500ms;
 }
 
-
 .footer {
-  background: white;
+
 }
 
 .final-wrapper {
@@ -103,8 +99,15 @@ h1 {
   margin: 1rem 0;
 }
 
+/*h3 {
+    font-size: 3vw;
+}
 
-.bars .page-container:before {
+h4 {
+    font-size: 1.8vw;
+}*/
+
+/*.bars .page-container:before {
   content: '';
   position: absolute;
   background: rgba(0, 0, 0, 0.1);
@@ -114,71 +117,38 @@ h1 {
   right: -55%;
   -webkit-transform: rotate(-60deg);
   transform: rotate(-46deg);
-}
+}*/
 
 .bars .page-container {
+}
+
+/*div.bars {
   overflow: hidden;
-}
-
-div.bars {
-  overflow: hidden;
-}
-
-
-@media (max-width:  1000px) {
-	.app-container {
-		height: initial!important;
-		width: 100%!important;
-	}
-
-	.app-container {
-		margin: 0!important;
-		margin-bottom: 2rem;
-	}
-
-	div.bars {
-		height: initial;
-	}
-	.page-container {
-		flex-direction: column;
-	}
-	.svg-container {
-		max-height: 300px;
-	}
-
-	.text-section {
-		margin-left: 0!important;
-	}
-.bars .page-container:before {
-	display: none;
-}
-}
+}*/
 
 .bar-chart .svg-container {
   min-width: 1200px;
 }
 
 .page-container.bar-chart {
-  overflow-x: auto;
+
 }
 
-
-
 .btn-navigation {
-    background: none;
-    border: none;
-    position: fixed;
-    top: 0;
-    /*top: 2rem;*/
-    /*bottom: 4.7rem;*/
-    font-size: 5rem;
-    color: white;
-    opacity: 0.9;
-    height: 100vh;
-    /*-webkit-text-stroke: black;*/
-    /*-webkit-text-stroke-width: 1px;*/
+  background: none;
+  border: none;
+  position: fixed;
+  top: 0;
+  /*top: 2rem;*/
+  /*bottom: 4.7rem;*/
+  font-size: 5rem;
+  color: white;
+  opacity: 0.9;
+  height: 100vh;
+  /*-webkit-text-stroke: black;*/
+  /*-webkit-text-stroke-width: 1px;*/
   cursor: pointer;
-    transition: opacity 800ms;
+  transition: opacity 800ms;
 }
 
 .btn-navigation:not(.right) {
@@ -195,18 +165,89 @@ div.bars {
   right: 60px;
 }
 
-
-@media(min-width: 1000px) {
-   .svg-container {
-        max-height: calc(100vh - 8rem);
-  }
-}
-
-
 .not-shown {
   opacity: 0;
 }
 
 .btn-navigation:focus {
   outline: none;
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (max-width: 1222px) {
+    .svg-container {
+        height: 700px;
+    }
+    
+    .svg-wrapper {
+        width: 100%!important;
+    }
+
+    .btn-navigation.right {
+      right: 0;
+    }
+
+    .arrow-left {
+      display: none!important;
+    }
+
+    .arrow-right {
+      display: none!important;
+    }
+
+    .btn-navigation:not(.right) {
+      left: 0;
+    }
+
+    .footer .mobile-block {
+      display: block;
+    }
+
+    .smaller-bars {
+      max-height: 90vh!important;
+    }
+
+    .app-container {
+        margin: 0 0 0 0 !important;
+        height: initial!important;
+    }
+
+    h1 {
+        font-size: 47px !important;
+    }
+
+    h3 {
+        font-size: 28px !important;
+        max-width: 100% !important;
+    }
+
+    h4 {
+        font-size: 17px !important;
+    }
+
+    .text-section {
+        text-align: center !important;
+    }
+
+    .footer {
+        /*height: 100px !important;*/
+    }
+
+    .footer input {
+      min-width: 200px;
+      margin: .5rem;
+      border: 1px solid red!important;
+    }
+    
+    .page-container {
+        flex-direction: column !important;
+    }
+    
+    .final-page {
+        flex-direction: column !important;
+    }
+}
+
+body.no-ovf {
+    overflow: hidden!important;
 }
